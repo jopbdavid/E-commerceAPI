@@ -4,7 +4,7 @@ require("dotenv").config();
 require("express-async-errors");
 
 //other packages
-const morgan = require("morgan");
+
 const cookieParser = require("cookie-parser");
 const rateLimiter = require("express-rate-limit");
 const helmet = require("helmet");
@@ -43,8 +43,6 @@ app.use(xss());
 app.use(cors());
 app.use(mongoSanitize());
 
-// http request logger package
-app.use(morgan("tiny"));
 //parses json middleware
 app.use(express.json());
 //parses cookies
@@ -55,14 +53,7 @@ app.use(express.static("./public"));
 app.use(fileUpload({ useTempFiles: true }));
 
 //ROUTES
-//homepage route
-app.get("/", (req, res) => {
-  res.send("<h1>E-commerce API</h1>");
-});
-app.get("/api/v1", (req, res) => {
-  console.log(req.signedCookies);
-  res.send("<h1>E-commerce API</h1>");
-});
+
 //other pages routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
